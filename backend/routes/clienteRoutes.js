@@ -1,12 +1,12 @@
 import express from "express";
-import clientesController from "../controllers/clientesController.js";
+import clienteController from "../controllers/clienteController.js";
 
 const routeClientes = express.Router();
 
-routeClientes.get("/", clientesController.getAllClientes);
-routeClientes.get("/:email", clientesController.clienteByEmail);
-routeClientes.post("/", clientesController.storeCliente);
-routeClientes.put("/:id", clientesController.updateClienteById);
-routeClientes.delete("/:id", clientesController.removeCliente);
+routeClientes.get("/", clienteController.getAllClientes);
+routeClientes.get("/:email", clienteController.clienteByEmail);
+routeClientes.post("/", clienteController.storeCliente);
+routeClientes.put("/:id", clienteController.updateCLienteById);
+routeClientes.delete("/:id", clienteController.removeCliente);
 
 export default routeClientes;

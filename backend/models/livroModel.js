@@ -2,7 +2,7 @@ import pool from "../db/database";
 
 class LivroModel {
     async showLivros() {
-        const [rows] = await pool.query("SELECT * FROM livro");
+        const [rows] = await pool.query("SELECT l.id_livro,l.titulo AS titulo_livro,l.autor,l.ano_publicacao,l.preco,e.nome AS nome_editora,cat.categoria AS nome_categoria FROM livros l INNER JOIN editoras e ON l.id_editora = e.id_editora INNER JOIN categorias cat ON l.id_categoria = cat.id_categoria;");
         return rows;
     }
 

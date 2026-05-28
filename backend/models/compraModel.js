@@ -3,7 +3,7 @@ import pool from "../db/database";
 class CompraModel {
 
     async showCompras() {
-        const [rows] = await pool.query("SELECT * FROM compras;");
+        const [rows] = await pool.query("SELECT co.id_compra,c.nome AS nome_cliente,l.titulo AS titulo_livro,l.autor AS autor_livro,co.qtde AS quantidade,co.valor AS valor_unitario,co.desconto,(co.qtde * co.valor) - IFNULL(co.desconto, 0) AS valor_total,co.data_compra FROM compras co INNER JOIN clientes c ON co.id_cliente = c.id_cliente INNER JOIN livros   l ON co.id_livro = l.id_livro;");
         return rows;
     }
 
@@ -13,8 +13,8 @@ class CompraModel {
     }
 
     async createCompra(compraData) {
-        const { qtde, valor, desconto, data_compra, id_livro, id_cliente } = compraData;
-        const [row] = await pool.execute("INSERT INTO compras qtde=?,valor=?,desconto=?,data_compra=?,id_livro=?,id_cliente=?;", [qtde, valor, desconto, data_compra, id_livro, id_cliente]);
+        const { qtde, valor, desconto, id_livro, id_cliente } = compraData;
+        const [row] = await pool.execute("INSERT INTO compras qtde=?,valor=?,desconto=?,id_livro=?,id_cliente=?;", [qtde, valor, desconto, id_livro, id_cliente]);
         return row
     }
 
