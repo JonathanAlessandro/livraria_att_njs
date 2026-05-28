@@ -1,7 +1,11 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import routeClientes from "./src/routes/clientesRoute.js";
+import routeClientes from "./routes/clienteRoutes";
+import routeCategorias from "./routes/categoriaRoutes";
+import routeCompras from "./routes/compraRoutes";
+import routeEditoras from "./routes/editoraRoutes";
+import routeLivros from "./routes/livroRoutes";
 
 dotenv.config();
 
