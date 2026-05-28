@@ -74,3 +74,5 @@ class EditoraController {
         }
     }
 }
+
+export default new EditoraController();
