@@ -1,5 +1,7 @@
 import mysql from "mysql2/promise";
-import dotenv from "db/dotenv";
+
+//dotenv não preciso especificar o caminho graças ao nodemodules ele já sabe onde vai estar
+import dotenv from "dotenv";
 
 
 dotenv.config();
