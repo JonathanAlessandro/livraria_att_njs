@@ -1,0 +1,4 @@
+https://profgregorioeric.com.br/jornada_fullstack/
+
+servidor de hospedagem gratuito
+https://vercel.com/new 

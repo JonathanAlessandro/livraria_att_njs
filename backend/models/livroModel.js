@@ -7,7 +7,7 @@ class LivroModel {
     }
 
     async getLivroById(id) {
-        const [rows] = await pool.query("SELECT * FROM livro WHERE id = ?", [id]);
+        const [rows] = await pool.query("SELECT * FROM livro WHERE id_livro = ?", [id]);
         return rows[0];
     }
 
@@ -24,7 +24,7 @@ class LivroModel {
     }
 
     async deleteLivro(id) {
-        const [row] = await pool.execute("DELETE FROM clientes WHERE id=?;", [id]);
+        const [row] = await pool.execute("DELETE FROM clientes WHERE id_livro=?;", [id]);
         return row;
     }
 }

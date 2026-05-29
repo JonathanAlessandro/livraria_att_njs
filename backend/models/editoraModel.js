@@ -8,7 +8,7 @@ class EditoraModel {
     }
 
     async getEditoraById(id) {
-        const [rows] = await pool.query("SELECT * FROM editoras WHERE id = ?;", [id]);
+        const [rows] = await pool.query("SELECT * FROM editoras WHERE id_editora = ?;", [id]);
         return rows[0];
     }
 
@@ -30,7 +30,7 @@ class EditoraModel {
     }
 
     async deleteEditora(id) {
-        const [row] = await pool.execute("DELETE FROM editoras where id=?;", [id]);
+        const [row] = await pool.execute("DELETE FROM editoras where id_editora=?;", [id]);
         return row;
     }
 }

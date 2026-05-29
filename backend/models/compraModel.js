@@ -8,7 +8,7 @@ class CompraModel {
     }
 
     async getCompraById(id) {
-        const [rows] = await pool.query("SELECT * FROM compras WHERE id = ?;", [id]);
+        const [rows] = await pool.query("SELECT * FROM compras WHERE id_compra = ?;", [id]);
         return rows[0];
     }
 
@@ -25,7 +25,7 @@ class CompraModel {
     }
 
     async deleteCompra(id) {
-        const [row] = await pool.execute("DELETE FROM compras where id=?;", [id]);
+        const [row] = await pool.execute("DELETE FROM compras where id_compra=?;", [id]);
         return row;
     }
 }

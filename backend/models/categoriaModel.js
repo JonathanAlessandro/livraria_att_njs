@@ -2,6 +2,7 @@ import pool from "../db/database.js";
 
 class CategoriaModel {
 
+    
     async showCategorias() {
         const [rows] = await pool.query("SELECT * FROM categorias;");
         return rows;

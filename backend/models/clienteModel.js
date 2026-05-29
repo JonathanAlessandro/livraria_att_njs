@@ -33,12 +33,12 @@ class ClientesModel {
 
     async updateCliente(id, clienteData) {
         const { nome, email, telefone, cidade, estado } = clienteData;
-        const [row] = await pool.execute("UPDATE clientes SET nome = ?, email = ?, telefone = ?, cidade = ?, estado = ? WHERE id = ?;", [nome, email, telefone, cidade, estado, id]);
+        const [row] = await pool.execute("UPDATE clientes SET nome = ?, email = ?, telefone = ?, cidade = ?, estado = ? WHERE id_cliente = ?;", [nome, email, telefone, cidade, estado, id]);
         return row;
     }
 
     async deleteCliente(id) {
-        const [row] = await pool.execute("DELETE FROM clientes WHERE id = ?;", [id]);
+        const [row] = await pool.execute("DELETE FROM clientes WHERE id_cliente = ?;", [id]);
         return row;
     }
 
