@@ -2,3 +2,6 @@ https://profgregorioeric.com.br/jornada_fullstack/
 
 servidor de hospedagem gratuito
 https://vercel.com/new 
+
+To turn your coding agent into a Vercel expert. Simply copy and run this in your terminal to install the plugin. Available for Claude, Cursor and Codex.
+npx plugins add vercel/vercel-plugin

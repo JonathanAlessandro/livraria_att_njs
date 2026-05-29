@@ -19,7 +19,7 @@ class LivroModel {
 
     async updateLivro(id, livroData) {
         const { titulo, autor, ano_publicacao, id_editora, id_categoria, preco } = livroData;
-        const [row] = await pool.execute("UPDATE livros SET titulo=?,autor=?,ano_publicacao=?,id_editora=?,id_categoria=?,preco=?;", [titulo, autor, ano_publicacao, id_editora, id_categoria, preco, id]);
+        const [row] = await pool.execute("UPDATE livros SET titulo=?,autor=?,ano_publicacao=?,id_editora=?,id_categoria=?,preco=? WHERE id_categoria = ?;", [titulo, autor, ano_publicacao, id_editora, id_categoria, preco, id]);
         return row;
     }
 

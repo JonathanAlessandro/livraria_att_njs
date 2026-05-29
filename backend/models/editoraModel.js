@@ -25,7 +25,7 @@ class EditoraModel {
 
     async updateEditora(id, editoraData) {
         const { nome, email, telefone, data_cadastro } = editoraData;
-        const [row] = await pool.execute("UPDATE editoras SET nome=?,email=?,telefone=?,data_cadastro=?;", [nome, email, telefone, data_cadastro, id]);
+        const [row] = await pool.execute("UPDATE editoras SET nome=?,email=?,telefone=?,data_cadastro=? WHERE id_editora = ?;", [nome, email, telefone, data_cadastro, id]);
         return row
     }
 

@@ -2,14 +2,14 @@ import pool from "../db/database.js";
 
 class CategoriaModel {
 
-    
+
     async showCategorias() {
         const [rows] = await pool.query("SELECT * FROM categorias;");
         return rows;
     }
 
     async getCategoriaById(id) {
-        const [rows] = await pool.query("SELECT * FROM categorias WHERE id = ?;", [id]);
+        const [rows] = await pool.query("SELECT * FROM categorias WHERE id_categoria = ?;", [id]);
         return rows[0];
     }
 
@@ -21,12 +21,12 @@ class CategoriaModel {
 
     async updateCategoria(id, categoriaDb) {
         const { categoria } = categoriaDb;
-        const [row] = await pool.execute("UPDATE categorias SET categoria=?;", [categoria, id]);
+        const [row] = await pool.execute("UPDATE categorias SET categoria=? WHERE id_categoria = ?;", [categoria, id]);
         return row
     }
 
     async deleteCategoria(id) {
-        const [row] = await pool.execute("DELETE FROM categorias where id=?;", [id]);
+        const [row] = await pool.execute("DELETE FROM categorias where id_categoria=?;", [id]);
         return row;
     }
 }

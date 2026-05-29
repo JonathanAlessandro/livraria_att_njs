@@ -20,7 +20,7 @@ class CompraModel {
 
     async updateCompra(id, compraData) {
         const { qtde, valor, desconto, data_compra, id_livro, id_cliente } = compraData;
-        const [row] = await pool.execute("UPDATE compras SET qtde=?,valor=?,desconto=?,data_compra=?,id_livro=?,id_cliente=?;", [qtde, valor, desconto, data_compra, id_livro, id_cliente, id]);
+        const [row] = await pool.execute("UPDATE compras SET qtde=?,valor=?,desconto=?,data_compra=?,id_livro=?,id_cliente=? WHERE id_compra = ?;", [qtde, valor, desconto, data_compra, id_livro, id_cliente, id]);
         return row
     }
 
