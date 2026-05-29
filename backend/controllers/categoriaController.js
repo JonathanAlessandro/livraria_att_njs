@@ -20,7 +20,7 @@ class CategoriaController {
             const id = Number(req.params.id);
             const findCategoria = await categoriaModel.getCategoriaById(id);
             if (!findCategoria) {
-                return res.status(404).json()
+                return res.status(404).json({message: `sucess`})
             }
 
             return res.json(findCategoria);
