@@ -1,4 +1,4 @@
-import pool from "../db/database";
+import pool from "../db/database.js";
 
 class LivroModel {
     async showLivros() {

@@ -1,9 +1,10 @@
-import compraModel from "../models/compraModel"
+import compraModel from "../models/compraModel.js"
 
 class CompraController {
     async getAllCompras(req, res) {
         try {
             const allCompras = await compraModel.showCompras();
+            console.log("compras try");
 
             if (allCompras.length === 0) {
                 return res.status(404).json();

@@ -1,4 +1,4 @@
-import pool from "../db/database";
+import pool from "../db/database.js";
 
 class CategoriaModel {
 
@@ -12,14 +12,14 @@ class CategoriaModel {
         return rows[0];
     }
 
-    async createCategoria(categoria) {
-        const { categoria } = categoria;
+    async createCategoria(categoriaDb) {
+        const { categoria } = categoriaDb;
         const [row] = await pool.execute("INSERT INTO categorias categoria=?;", [categoria]);
         return row
     }
 
-    async updateCategoria(id, categoria) {
-        const { categoria } = categoria;
+    async updateCategoria(id, categoriaDb) {
+        const { categoria } = categoriaDb;
         const [row] = await pool.execute("UPDATE categorias SET categoria=?;", [categoria, id]);
         return row
     }

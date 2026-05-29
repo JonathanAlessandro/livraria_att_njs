@@ -1,11 +1,11 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import routeClientes from "./routes/clienteRoutes";
-import routeCategorias from "./routes/categoriaRoutes";
-import routeCompras from "./routes/compraRoutes";
-import routeEditoras from "./routes/editoraRoutes";
-import routeLivros from "./routes/livroRoutes";
+import routeClientes from "./routes/clienteRoutes.js";
+import routeCategorias from "./routes/categoriaRoutes.js";
+import routeCompras from "./routes/compraRoutes.js";
+import routeEditoras from "./routes/editoraRoutes.js";
+import routeLivros from "./routes/livroRoutes.js";
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = process.env.PORT_SERVER || 5050;
+const PORT = process.env.PORT_SERVER || 6050;
 
 app.use("/clientes", routeClientes);
 app.use("/categorias", routeCategorias);

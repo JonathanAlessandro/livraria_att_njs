@@ -1,4 +1,4 @@
-import editoraModel from "../models/editoraModel";
+import editoraModel from "../models/editoraModel.js";
 
 class EditoraController {
     async getAllEditoras(req, res) {
