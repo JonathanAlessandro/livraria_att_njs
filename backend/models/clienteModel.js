@@ -4,6 +4,8 @@ import pool from "../db/database.js";
 class ClientesModel {
     async showClientes() {
         const [rows] = await pool.execute("SELECT * FROM clientes;");
+        
+        
         return rows;
 
         //versão utilizando promises de fazer a consulta ao banco de dados, onde a função retorna uma nova Promise que é resolvida ou rejeitada com base no resultado da consulta.
@@ -18,8 +20,15 @@ class ClientesModel {
         // });
     }
 
+    async getClienteById(id) {
+        const [rows] = await pool.execute("SELECT * FROM clientes WHERE id_cliente = ?;", [id]);
+        return rows[0];
+    }
+
+
     async getClienteByEmail(email) {
-        const [[row]] = await pool.execute("SELECT * FROM clientes where email = ?;", [email]);
+        const [row] = await pool.execute("SELECT * FROM clientes where email = ?;", [email]);
+        
         return row;
     }
 

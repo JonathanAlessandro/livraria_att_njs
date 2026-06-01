@@ -31,17 +31,19 @@ class ClientesController {
 
     async clienteByEmail(req, res) {
         try {
-            const { email } = req.body;
-            const findEmail = await clientesModel.getClienteByEmail(email);
+            
+            const { email } = req.params;
+            
+            const [findEmail] = await clientesModel.getClienteByEmail(email);
 
             if (findEmail?.email === email) {
                 return res.json({
-                    message: "Email já cadastrado!",
+                    findEmail
                 });
             }
             return res.json({ email: findEmail.email })
         } catch (error) {
-            return res.json({ message: `ocorreu um erro: ${error}` })
+            return res.json({ message: `Erro errado ocorreu um erro: ${error}` })
         }
     }
 
