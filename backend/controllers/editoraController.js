@@ -28,9 +28,9 @@ class EditoraController {
 
     async addEditora(req, res) {
         try {
-            const { nome, email, telefone, data_cadastro } = req.body;
+            const { nome, email, telefone } = req.body;
 
-            if (!nome || !email || !telefone || !data_cadastro) {
+            if (!nome || !email || !telefone) {
                 return res.json({ message: "Todos os campos são obrigatorios!" });
             }
 
@@ -49,10 +49,11 @@ class EditoraController {
     async updateEditora(req, res) {
         try {
             const id = Number(req.params.id);
-            const { nome, email, telefone, data_cadastro } = await editoraModel.updateEditora(id);
-            if (!nome || !email || !telefone || !data_cadastro) {
+            const { nome, email, telefone } = req.body;
+            if (!nome || !email || !telefone) {
                 return res.json({ message: "Todos os campos são obrigatorios!" });
             };
+            const updateEditora = await editoraModel.updateEditora(id, req.body);
             return res.json({ message: "Editora atualizada com sucesso!" });
         } catch (error) {
             return res.json({ message: `ocorreu um erro: ${error}` })
