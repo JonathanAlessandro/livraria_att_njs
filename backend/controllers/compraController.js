@@ -33,9 +33,9 @@ class CompraController {
 
     async addCompra(req, res) {
         try {
-            const { id_cliente, id_livro, quantidade, valor_total } = req.body;
+            const { id_cliente, id_livro, qtde, valor } = req.body;
 
-            if (!id_cliente || !id_livro || !quantidade || !valor_total) {
+            if (!id_cliente || !id_livro || !qtde || !valor) {
                 return res.status(400).json({ message: "Todos os campos são obrigatórios!" });
             }
 
@@ -54,12 +54,12 @@ class CompraController {
     async updateCompra(req, res) {
         try {
             const id = Number(req.params.id);
-            const { id_cliente, id_livro, quantidade, valor_total } = await compraModel.updateCompra(id);
+            const { id_cliente, id_livro, qtde, valor } = req.body;
 
-            if (!id_cliente || !id_livro || !quantidade || !valor_total) {
+            if (!id_cliente || !id_livro || !qtde || !valor) {
                 return res.status(400).json({ message: "Todos os campos são obrigatórios!" });
             };
-
+            const updateCompra = await compraModel.updateCompra(id, req.body);
             return res.json({ message: "Compra atualizada com sucesso!" });
         } catch (error) {
             return res.status(500).json({ message: `ocorreu um erro: ${error.message}` })
