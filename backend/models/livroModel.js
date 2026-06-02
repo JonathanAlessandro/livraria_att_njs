@@ -13,7 +13,7 @@ class LivroModel {
 
     async createLivro(livroData) {
         const { titulo, autor, ano_publicacao, id_editora, id_categoria, preco } = livroData;
-        const [row] = await pool.execute("INSERT INTO livros titulo=?,autor=?,ano_publicacao=?,id_editora=?,id_categoria=?,preco=?;", [titulo, autor, ano_publicacao, id_editora, id_categoria, preco]);
+        const [row] = await pool.execute("INSERT INTO livros VALUES titulo=?,autor=?,ano_publicacao=?,id_editora=?,id_categoria=?,preco=?;", [titulo, autor, ano_publicacao, id_editora, id_categoria, preco]);
         return row
     }
 

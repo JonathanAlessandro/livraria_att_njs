@@ -19,7 +19,7 @@ class EditoraModel {
 
     async createEditora(editoraData) {
         const { nome, email, telefone, data_cadastro } = editoraData;
-        const [row] = await pool.execute("INSERT INTO editoras nome=?,email=?,telefone=?,data_cadastro=?;", [nome, email, telefone, data_cadastro]);
+        const [row] = await pool.execute("INSERT INTO editoras VALUES nome=?,email=?,telefone=?,data_cadastro=?;", [nome, email, telefone, data_cadastro]);
         return row
     }
 

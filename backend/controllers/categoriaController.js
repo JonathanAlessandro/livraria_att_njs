@@ -31,13 +31,13 @@ class CategoriaController {
 
     async addCategoria(req, res) {
         try {
-            const { categoria } = req.body;
+            const categoria  = req.body;
 
             if (!categoria) {
                 return res.json({ message: "Nenhuma categoria fornecida!" });
             };
 
-            const createCategoria = await categoriaModel.createCategoria(req.body);
+            const createCategoria = await categoriaModel.createCategoria(categoria);
 
             if (createCategoria.affectedRows === 0) {
                 return res.json({ message: "Não foi possível cadastrar a categoria" })
@@ -52,11 +52,9 @@ class CategoriaController {
     async updateCategoria(req, res) {
         try {
             const id = Number(req.params.id);
-            const { categoria } = await categoriaModel.updateCategoria(id);
-
-            if (!categoria) {
-                return res.json({ message: "Nenhuma categoria fornecida!" });
-            };
+            const dados = req.body; 
+            
+            const { categoria } = await categoriaModel.updateCategoria(id, dados)
 
             return res.json({ message: "Categoria atualizada com sucesso!" });
         } catch (error) {

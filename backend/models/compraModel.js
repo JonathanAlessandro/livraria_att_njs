@@ -14,7 +14,7 @@ class CompraModel {
 
     async createCompra(compraData) {
         const { qtde, valor, desconto, id_livro, id_cliente } = compraData;
-        const [row] = await pool.execute("INSERT INTO compras qtde=?,valor=?,desconto=?,id_livro=?,id_cliente=?;", [qtde, valor, desconto, id_livro, id_cliente]);
+        const [row] = await pool.execute("INSERT INTO compras (qtde,valor,desconto,id_livro,id_cliente) VALUES (?,?,?,?,?);", [qtde, valor, desconto, id_livro, id_cliente]);
         return row
     }
 
