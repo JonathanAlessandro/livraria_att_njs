@@ -53,14 +53,14 @@ class LivroModel {
     async updateLivroById(req, res) {
         try {
             const id = Number(req.params.id);
-            const { titulo, autor, ano_publicacao, id_editora, id_categoria, preco } = await livroModel.getLivroById(id);
+            const { titulo, autor, ano_publicacao, id_editora, id_categoria, preco } = req.body;
 
             //se os campos estiverem diferentes de preenchidos, ou seja, vazios ou nulos, retorna a mensagem de erro
             if (!titulo || !autor || !ano_publicacao || !id_editora || !id_categoria || !preco) {
                 return res.json({ message: "Todos os campos são Obrigatórios" });
             }
 
-            const updateLivro = livroModel.updateLivro(id, req.body);
+            const updateLivro =  await livroModel.updateLivro(id, req.body);
 
             //verifica se alguma linha foi afetada se não foi afetada, ou seja, se o id não existe, retorna a mensagem de erro
             if (updateLivro.affectedRows === 0) {
