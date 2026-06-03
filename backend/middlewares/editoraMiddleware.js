@@ -11,7 +11,7 @@ const validateEditora = (req, res, next) => {
     if (!email || email.trim() === "") {
         errors.push("O campo email é obrigatório.");
     } else {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^0-9\s@][^\s@]*@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(email)) {
             errors.push("O campo email deve conter um endereço de email válido.");
