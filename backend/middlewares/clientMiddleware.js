@@ -24,6 +24,10 @@ const validateCliente = (req,res,next) =>  {
         errors.push("O campo deve ter no maximo 20 caracteres.");
     }
 
+    if(!cidade || cidade.trim() === ""){
+        errors.push("O campo cidade é obrigatório.");
+    }
+
     if(!estado || estado.trim().length !== 2){
         errors.push("O campo deve ter 2 caracteres");
     }

@@ -22,6 +22,14 @@ const validateLivro = (req, res, next) => {
         errors.push("O campo id editora é obrigatório e deve ser um número.");
     }
 
+    if (!preco || typeof preco !== "number" || preco <= 0) {
+        errors.push("O campo preço é obrigatório, deve ser um número e maior que zero.");
+    }
+
+    if(!ano_publicacao) {
+        errors.push("O campo ano de publicação é obrigatório");
+    }
+
     if (errors.length > 0) {
         return res.status(400).json({ errors });
     }
