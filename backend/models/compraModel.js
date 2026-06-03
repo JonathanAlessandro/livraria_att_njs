@@ -8,20 +8,25 @@ class CompraModel {
     }
 
     async getCompraById(id) {
-        const [rows] = await pool.query(`SELECT 
-            c.id_compra,
-            c.qtde,
-            c.valor,
-            c.desconto,
-            c.data_compra,
-            l.titulo AS nome_livro,
-            cl.nome AS nome_cliente
-        FROM compras c
-        INNER JOIN livros l ON c.id_livro = l.id_livro
-        INNER JOIN clientes cl ON c.id_cliente = cl.id_cliente
-        WHERE c.id_compra = ?;`, [id]);
+        const [rows] = await pool.query("SELECT * FROM compras WHERE id_compra = ?;", [id]);
         return rows[0];
     }
+
+    // async getCompraById(id) {
+    //     const [rows] = await pool.query(`SELECT 
+    //         c.id_compra,
+    //         c.qtde,
+    //         c.valor,
+    //         c.desconto,
+    //         c.data_compra,
+    //         l.titulo AS nome_livro,
+    //         cl.nome AS nome_cliente
+    //     FROM compras c
+    //     INNER JOIN livros l ON c.id_livro = l.id_livro
+    //     INNER JOIN clientes cl ON c.id_cliente = cl.id_cliente
+    //     WHERE c.id_compra = ?;`, [id]);
+    //     return rows[0];
+    // }
 
     async createCompra(compraData) {
         const { qtde, valor, desconto, id_livro, id_cliente } = compraData;

@@ -1,0 +1,38 @@
+const validateCliente = (req,res,next) =>  {
+    const {nome,email,telefone,estado} = req.body;
+    const errors =[];
+
+    if(!nome || nome.trim() === ""){
+        errors.push("O campo nome é obrigatório.");
+    } else if (nome.length > 100) {
+        errors.push("O campo nome deve conter no máximo 100 caracteres.");
+    }
+
+    if(!email || email.trim() === ""){
+        errors.push("O campo email é obrigatório.");
+    } else{
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if(!emailRegex.test(email)){
+            errors.push("O campo email deve conter um endereço de email válido.");
+        } else if (email.length > 100) {
+            errors.push("O campo email deve conter no máximo 100 caracteres.");
+        }
+    }
+
+    if(!telefone || telefone.trim().length > 20){
+        errors.push("O campo deve ter no maximo 20 caracteres.");
+    }
+
+    if(!estado || estado.trim().length !== 2){
+        errors.push("O campo deve ter 2 caracteres");
+    }
+
+    if(errors.length > 0){
+        return res.status(400).json({errors});
+    }
+
+    next();
+}
+
+export default validateCliente;
