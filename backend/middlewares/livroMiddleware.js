@@ -14,11 +14,11 @@ const validateLivro = (req, res, next) => {
         errors.push("O campo autor deve conter no máximo 100 caracteres.");
     }
 
-    if (!id_categoria || typeof id_categoria !== "number" || id_categoria.trim() === "") {
+    if (!id_categoria || typeof id_categoria !== "number") {
         errors.push("O campo id categoria é obrigatório e deve ser um número.");
     }
 
-    if (!id_editora || typeof id_editora !== "number" || id_editora.trim() === "") {
+    if (!id_editora || typeof id_editora !== "number") {
         errors.push("O campo id editora é obrigatório e deve ser um número.");
     }
 
