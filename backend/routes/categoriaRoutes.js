@@ -1,7 +1,7 @@
 import express from 'express';
 import categoriaController from '../controllers/categoriaController.js';
 //desconstrutor funciona no import quando precisa somente de uma função ou objeto específico, sem precisar importar o módulo inteiro.
-import { validateCategoria } from '../middlewares/validateCategoria.js';
+import  validateCategoria  from '../middlewares/categoriaMiddleware.js';
 
 const routeCategorias = express.Router();
 

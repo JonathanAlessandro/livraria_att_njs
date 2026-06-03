@@ -1,7 +1,7 @@
 import express from "express";
 import livroController from "../controllers/livroController.js";
 
-import { validateLivro } from "../middlewares/validateLivro.js";
+import validateLivro  from "../middlewares/livroMiddleware.js";
 
 const routeLivros = express.Router();
 

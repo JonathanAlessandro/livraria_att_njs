@@ -1,6 +1,6 @@
 import express from "express";
 import clienteController from "../controllers/clienteController.js";
-import { validateCliente } from "../middlewares/validateCliente.js";
+import validateCliente  from "../middlewares/clientMiddleware.js";
 
 const routeClientes = express.Router();
 

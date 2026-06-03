@@ -1,6 +1,6 @@
 import express from "express";
 import compraController from "../controllers/compraController.js";
-import { validateCompra } from "../middlewares/validateCompra.js";
+import  validateCompra  from "../middlewares/compraMiddleware.js";
 
 const routeCompras = express.Router();
 

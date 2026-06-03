@@ -1,6 +1,6 @@
 import express from "express";
 import editoraController from "../controllers/editoraController.js";
-import { validateEditora } from "../middlewares/validateEditora.js";
+import  validateEditora  from "../middlewares/editoraMiddleware.js";
 
 const routeEditoras = express.Router();
 
