@@ -8,18 +8,18 @@ const validateLivro = (req, res, next) => {
         errors.push("O campo titulo deve conter no máximo 100 caracteres.");
     }
 
-    if (!autor || autor.trim() === "") {
+    if (!autor || autor.trim() === "" ) {
         errors.push("O campo autor é obrigatório.");
     } else if (autor.length > 100) {
         errors.push("O campo autor deve conter no máximo 100 caracteres.");
     }
 
-    if (!id_categoria || typeof id_categoria !== "number") {
-        errors.push("O campo id_categoria é obrigatório e deve ser um número.");
+    if (!id_categoria || typeof id_categoria !== "number" || id_categoria.trim() === "") {
+        errors.push("O campo id categoria é obrigatório e deve ser um número.");
     }
 
-    if (!id_editora || typeof id_editora !== "number") {
-        errors.push("O campo id_editora é obrigatório e deve ser um número.");
+    if (!id_editora || typeof id_editora !== "number" || id_editora.trim() === "") {
+        errors.push("O campo id editora é obrigatório e deve ser um número.");
     }
 
     if (errors.length > 0) {
@@ -28,3 +28,5 @@ const validateLivro = (req, res, next) => {
 
     next();
 }
+
+export default validateLivro;

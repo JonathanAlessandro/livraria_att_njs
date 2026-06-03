@@ -14,3 +14,5 @@ const validateCategoria = (req, res, next) => {
 
     next();
 }
+
+export default validateCategoria;
