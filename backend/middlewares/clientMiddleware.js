@@ -1,6 +1,14 @@
+
+
 const validateCliente = (req,res,next) =>  {
     const {nome,email,telefone,cidade,estado} = req.body;
     const errors =[];
+
+    // uma outra forma de declarar varias variaveis
+    // const   newnome = nome.trim().toUpperCase(),
+    //         newEmail = email.trim().toUpperCase(),
+    //         newCidade = cidade.trim().toUpperCase(),
+    //         newEstado = estado.trim().toUpperCase()
 
     if(!nome || nome.trim() === ""){
         errors.push("O campo nome é obrigatório.");
@@ -10,7 +18,7 @@ const validateCliente = (req,res,next) =>  {
 
     if(!email || email.trim() === ""){
         errors.push("O campo email é obrigatório.");
-    } else{
+    } else if(email.trim().length > 100 && email.trim().length > 3) {
         const emailRegex = /^[^0-9\s@][^\s@]*@[^\s@]+\.[^\s@]+$/;
 
         if(!emailRegex.test(email)){
