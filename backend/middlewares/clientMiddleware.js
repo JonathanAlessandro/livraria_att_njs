@@ -1,5 +1,5 @@
 const validateCliente = (req,res,next) =>  {
-    const {nome,email,telefone,estado} = req.body;
+    const {nome,email,telefone,cidade,estado} = req.body;
     const errors =[];
 
     if(!nome || nome.trim() === ""){

@@ -51,13 +51,21 @@ class ClientesController {
         try {
             const { nome, email, telefone, cidade, estado } = req.body;
 
-            if (nome === "" || !email || !telefone || !cidade || !estado) {
-                return res.json({ message: "Todos os campos são Obrigatórios" });
-            }
+            // if (nome === "" || !email || !telefone || !cidade || !estado) {
+            //     return res.json({ message: "Todos os campos são Obrigatórios" });
+            // }
 
-            const findEmail = await clientesModel.getClienteByEmail(email);
+            const [findEmail] = await clientesModel.getClienteByEmail(email);
+            
+            
 
-            if (findEmail?.email === email) {
+            // if (findEmail?.email === email) {
+            //     return res.json({
+            //         message: "Email já cadastrado!",
+            //     });
+            // }
+
+            if (findEmail) {
                 return res.json({
                     message: "Email já cadastrado!",
                 });
@@ -65,9 +73,9 @@ class ClientesController {
 
             const createCliente = await clientesModel.createCliente(req.body);
 
-            if (createCliente.affectedRows === 0) {
+            if (createCliente.affectedRows > 0) {
                 return res.json({
-                    message: "Não foi possível realizar o cadastro!",
+                    message: "Cliente cadastrado com sucesso!",
                 });
             }
 
@@ -81,14 +89,14 @@ class ClientesController {
         try {
             const id = Number(req.params.id);
             const { nome, email, telefone, cidade, estado } = req.body;
-            const findEmail = await clientesModel.getClienteByEmail(email);
+            const [findEmail] = await clientesModel.getClienteByEmail(email,id);
 
 
-            if (!nome || !email || !telefone || !cidade || !estado) {
-                return res.json({ message: "Todos os campos são Obrigatórios" });
-            }
+            // if (!nome || !email || !telefone || !cidade || !estado) {
+            //     return res.json({ message: "Todos os campos são Obrigatórios" });
+            // }
 
-            if (findEmail?.email === email) {
+            if (findEmail) {
                 return res.json({
                     message: "Email já cadastrado!",
                 });
@@ -96,9 +104,9 @@ class ClientesController {
 
             const updateCliente = await clientesModel.updateCliente(id, req.body);
 
-            if (updateCliente.affectedRows === 0) {
+            if (updateCliente.affectedRows > 0) {
                 return res.json({
-                    message: "Não foi possível realizar a atualização!",
+                    message: "Cliente atualizado com sucesso!",
                 });
             }
 

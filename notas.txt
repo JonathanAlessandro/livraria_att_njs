@@ -8,3 +8,5 @@ npx plugins add vercel/vercel-plugin
 
 
 erick.gaquino@senacsp.edu.br
+
+biblioteca: zod
