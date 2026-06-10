@@ -60,7 +60,7 @@ class LivroController {
                 return res.json({ message: "Todos os campos são Obrigatórios" });
             }
 
-            const updateLivro =  await livroModel.updateLivro(id, req.body);
+            const updateLivro = await livroModel.updateLivro(id, req.body);
 
             //verifica se alguma linha foi afetada se não foi afetada, ou seja, se o id não existe, retorna a mensagem de erro
             if (updateLivro.affectedRows === 0) {

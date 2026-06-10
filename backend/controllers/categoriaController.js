@@ -20,7 +20,7 @@ class CategoriaController {
             const id = Number(req.params.id);
             const findCategoria = await categoriaModel.getCategoriaById(id);
             if (!findCategoria) {
-                return res.status(404).json({message: `sucess`})
+                return res.status(404).json({ message: `sucess` })
             }
 
             return res.json(findCategoria);
@@ -31,7 +31,7 @@ class CategoriaController {
 
     async addCategoria(req, res) {
         try {
-            const categoria  = req.body;
+            const categoria = req.body;
 
             if (!categoria) {
                 return res.json({ message: "Nenhuma categoria fornecida!" });
@@ -52,8 +52,8 @@ class CategoriaController {
     async updateCategoria(req, res) {
         try {
             const id = Number(req.params.id);
-            const dados = req.body; 
-            
+            const dados = req.body;
+
             const { categoria } = await categoriaModel.updateCategoria(id, dados)
 
             return res.json({ message: "Categoria atualizada com sucesso!" });

@@ -14,13 +14,13 @@ class CategoriaModel {
     }
 
     async createCategoria(categoriaDb) {
-        const {categoria} = categoriaDb;
+        const { categoria } = categoriaDb;
         const [row] = await pool.execute("INSERT INTO categorias (categoria) VALUES (?);", [categoria]);
         return row
     }
 
     async updateCategoria(id, dados) {
-        const { categoria: categoriaTexto } = dados; 
+        const { categoria: categoriaTexto } = dados;
 
         const [row] = await pool.execute("UPDATE categorias SET categoria=? WHERE id_categoria = ?;", [categoriaTexto, id]);
         return row;

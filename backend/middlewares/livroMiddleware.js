@@ -8,7 +8,7 @@ const validateLivro = (req, res, next) => {
         errors.push("O campo titulo deve conter no máximo 100 caracteres.");
     }
 
-    if (!autor || autor.trim() === "" ) {
+    if (!autor || autor.trim() === "") {
         errors.push("O campo autor é obrigatório.");
     } else if (autor.length > 100) {
         errors.push("O campo autor deve conter no máximo 100 caracteres.");
@@ -26,7 +26,7 @@ const validateLivro = (req, res, next) => {
         errors.push("O campo preço é obrigatório, deve ser um número e maior que zero.");
     }
 
-    if(!ano_publicacao) {
+    if (!ano_publicacao) {
         errors.push("O campo ano de publicação é obrigatório");
     }
 

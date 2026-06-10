@@ -20,7 +20,7 @@ const validateEditora = (req, res, next) => {
         }
     }
 
-    if (!telefone || telefone.trim().length > 20 ) {
+    if (!telefone || telefone.trim().length > 20) {
         errors.push("O campo telefone deve conter no máximo 20 caracteres.");
     } else if (telefone.trim().length === 0) {
         errors.push("O campo telefone é obrigatório.");

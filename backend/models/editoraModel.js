@@ -12,8 +12,8 @@ class EditoraModel {
         return rows[0];
     }
 
-    async getEditoraByEmail(email,id) {
-        const [[row]] = await pool.execute("SELECT * FROM editoras where email = ? AND id_editora != ?;", [email,id]);
+    async getEditoraByEmail(email, id) {
+        const [[row]] = await pool.execute("SELECT * FROM editoras where email = ? AND id_editora != ?;", [email, id]);
         return row
     }
 

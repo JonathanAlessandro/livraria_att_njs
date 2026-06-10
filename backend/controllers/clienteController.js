@@ -31,9 +31,9 @@ class ClientesController {
 
     async clienteByEmail(req, res) {
         try {
-            
+
             const { email } = req.params;
-            
+
             const [findEmail] = await clientesModel.getClienteByEmail(email);
 
             if (findEmail?.email === email) {
@@ -56,8 +56,8 @@ class ClientesController {
             // }
 
             const [findEmail] = await clientesModel.getClienteByEmail(email);
-            
-            
+
+
 
             // if (findEmail?.email === email) {
             //     return res.json({
@@ -89,7 +89,7 @@ class ClientesController {
         try {
             const id = Number(req.params.id);
             const { nome, email, telefone, cidade, estado } = req.body;
-            const [findEmail] = await clientesModel.getClienteByEmail(email,id);
+            const [findEmail] = await clientesModel.getClienteByEmail(email, id);
 
 
             // if (!nome || !email || !telefone || !cidade || !estado) {
