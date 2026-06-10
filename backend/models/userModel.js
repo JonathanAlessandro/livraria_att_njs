@@ -22,8 +22,8 @@ class UserModel {
     async createUser(userData){
         const {user_name,user_email,user_password,user_phone,role_id,user_status} = userData
         const query = `INSERT INTO users (user_name,user_email,user_password,user_phone,role_id,user_status) VALUES (?,?,?,?,?,?); `
-        const [rows] = await pool.execute(query,[user_name,user_email,user_password,user_phone,role_id,user_status]);
-        return rows;
+        const [result] = await pool.execute(query,[user_name,user_email,user_password,user_phone,role_id,user_status]);
+        return result;
     }
 
     async updateUser(id,userData){
@@ -39,3 +39,5 @@ class UserModel {
         return rows;
     }
 }
+
+export default new UserModel();

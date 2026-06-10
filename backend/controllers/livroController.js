@@ -1,6 +1,6 @@
 import livroModel from "../models/livroModel.js";
 
-class LivroModel {
+class LivroController {
     async getAllLivros(req, res) {
         try {
             const allLivros = await livroModel.showLivros();
@@ -94,4 +94,4 @@ class LivroModel {
     }
 }
 
-export default new LivroModel();
+export default new LivroController();
