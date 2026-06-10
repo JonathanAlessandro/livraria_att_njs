@@ -28,8 +28,8 @@ class UserController {
 
     async getUserByEmail(req,res){
         try {
-            const {email} = req.params;
-            const findUser = await userModel.userByEmail(email);
+            const {user_email} = req.params;
+            const findUser = await userModel.userByEmail(user_email);
             if (!findUser) {
                 return res.status(404).json({message:"Usuario não encontrado"})
             }
@@ -41,9 +41,14 @@ class UserController {
     
     async addUser(req,res){
         try {
-            // const {user_name,user_email,user_password,user_phone,role_id,user_status} =req.body;
-            const addCliente = await userModel.createUser(req.body);
+            const [userExists] = await userModel.userByEmail(req.body.user_email);
 
+            if (userExists) {
+                return res.json({message: "Email já cadastrado!"})
+            }
+
+            const addCliente = await userModel.createUser(req.body);
+            
             if (addCliente.affectedRows >0) {
                 return res.status(200).json({message:"Usuario cadastrado com sucesso!"})
             }
