@@ -6,6 +6,8 @@ import routeCategorias from "./routes/categoriaRoutes.js";
 import routeCompras from "./routes/compraRoutes.js";
 import routeEditoras from "./routes/editoraRoutes.js";
 import routeLivros from "./routes/livroRoutes.js";
+import routeUsers from "./routes/userRoutes.js";
+
 
 dotenv.config();
 
@@ -21,7 +23,7 @@ app.use("/categorias", routeCategorias);
 app.use("/editoras", routeEditoras);
 app.use("/livros", routeLivros);
 app.use("/compras", routeCompras);
-
+app.use("/users", routeUsers);
 
 app.listen(PORT, () => {
     return console.log(`Servidor rodando http://localhost:${PORT}`);
