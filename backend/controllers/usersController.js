@@ -137,13 +137,12 @@ class UserController {
 
             // 3. Se uma NOVA senha foi enviada, faz a lógica de comparação e criptografia
             if (user_password) {
-                const isSamePassword = await bcrypt.compare(
-                    user_password,
-                    currentUser.user_password
-                );
-
-                // Se for uma senha nova e diferente, criptografa ela
+                // O bcrypt.compare vai dizer se "1234" corresponde à hash do banco
+                const isSamePassword = await bcrypt.compare(user_password,currentUser.user_password);
+                
+                // SE NÃO FOR A MESMA SENHA: O usuário digitou algo novo. 
                 if (!isSamePassword) {
+                    // Agora gera uma nova hash para a senha nova
                     hashedPassword = await bcrypt.hash(user_password, 10);
                 }
             }
