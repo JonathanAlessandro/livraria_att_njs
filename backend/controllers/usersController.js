@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import userModel from "../models/usersModel.js";
+import jwt from "jsonwebtoken";
 
 class UserController {
     async getAllUsers(req, res) {
@@ -204,7 +205,7 @@ class UserController {
     //             const result = await userModel.updateUser(user_id, {
     //                 user_name,
     //                 user_email,
-    //                 user_password: hashedPassword,
+    //                 user_password: existsPassword.user_password,
     //                 user_phone,
     //                 role_id,
     //                 user_status,
@@ -235,6 +236,69 @@ class UserController {
             return res.status(500).json({ error: `Erro ao criar usuário! ${error}` });
         }
     }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+    async login(req,res){
+        try {
+            const { user_email, user_password } = req.body;
+
+            const [user] = await userModel.selectUserByEmail(user_email);
+
+            if (!user) {
+                return res.status(404).json({ error: "Usuário não encontrado!" });
+            }
+
+            const isPasswordValid = await bcrypt.compare(user_password, user.user_password);
+
+            if (!isPasswordValid) {
+                return res.status(401).json({ error: "Senha incorreta!" });
+            }
+
+            const token = jwt.sign(
+                { user_id: user.user_id, role_id: user.role_id },
+                
+                //chave secreta protegida pegando do arquivo .env
+                process.env.JWT_SECRET,
+                { expiresIn: "1d" }
+            );
+
+            //retorna o token para o frontend, para que ele possa usar nas próximas requisições
+            return res.status(200).json({ success: "Login bem-sucedido!", token: token });
+        } catch (error) {
+            return res.status(500).json({ error: `Erro ao realizar login! ${error.message}` });
+        }
+    }
+
+
+    async changePassword(req,res){
+        try {
+            const { user_id } = req.params;
+            const { new_password } = req.body;
+
+            const [user] = await userModel.selectUserById(user_id);
+
+            if (!user) {
+                return res.status(404).json({ error: "Usuário não encontrado!" });
+            }
+
+            const hashedPassword = await bcrypt.hash(new_password, 10);
+
+            const result = await userModel.updateUser(user_id, {
+                ...user,
+                user_password: hashedPassword,
+            });
+
+            if (result.affectedRows > 0) {
+                return res.status(200).json({ success: "Senha atualizada com sucesso!" });
+            } else {
+                return res.status(400).json({ error: "Nenhuma alteração foi feita." });
+            }
+        } catch (error) {
+            return res.status(500).json({ error: `Erro ao atualizar senha! ${error.message}` });
+        }
+    }
+
 }
 
 export default new UserController();
