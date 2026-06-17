@@ -10,3 +10,13 @@ npx plugins add vercel/vercel-plugin
 erick.gaquino@senacsp.edu.br
 
 biblioteca: zod
+
+
+para armazenar em cookies do navegador usar 
+cookie-parser
+para fazer as criptografias usar
+bcrypt
+banco de dados
+express
+credencias
+cors
