@@ -10,7 +10,7 @@ class AuthLoginController {
     async login(req, res) {
         try {
             const { user_email, user_password } = req.body;
-            const emailExists = await usersModel.selectUserByEmail(user_email)
+            const [emailExists] = await usersModel.selectUserByEmail(user_email)
             if (!emailExists) {
                 return res.status(400).json({ error: "Email ou senha invalido!" });
             }

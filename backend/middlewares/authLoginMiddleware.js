@@ -1,15 +1,14 @@
-import { configDotenv } from "dotenv";
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
-configDotenv;
+dotenv.config()
 
 
 // posso exportar como default colocando o export ao criar a constant ou classe
-export const authenticationToken = (req, res, next) => {
+const authenticationToken = (req, res, next) => {
 
-    const getToken = req.headers.Authorization;
+    const getToken = req.headers.authorization;
     const bearerTokken = getToken.split(" ")[1];
-
 
     if (!bearerTokken) {
         return res.status(401).json({ error: "Token não fornecido" })
@@ -28,4 +27,6 @@ export const authenticationToken = (req, res, next) => {
     });
 
 }
+
+export default authenticationToken;
 
