@@ -5,7 +5,7 @@ dotenv.config()
 
 
 // posso exportar como default colocando o export ao criar a constant ou classe
-const authenticationToken = (req, res, next) => {
+export const authenticationToken = (req, res, next) => {
 
     const getToken = req.headers.authorization;
     const bearerTokken = getToken.split(" ")[1];
@@ -28,5 +28,5 @@ const authenticationToken = (req, res, next) => {
 
 }
 
-export default authenticationToken;
+
 
