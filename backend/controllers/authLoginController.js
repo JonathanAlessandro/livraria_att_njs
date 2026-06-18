@@ -53,6 +53,18 @@ class AuthLoginController {
 
     }
 
+    async logout(req,res){
+        const refreshToken = req.cookies?.refreshToken;
+        const deleteToken = await tok.deleteToken(refreshToken);
+        
+        res.clearCookie("refreshToken");
+
+        if (deleteToken.affectedRows > 0) {
+            return res.status(201).json({success:"Logout realizado!"})
+        }
+
+        return res.status(500).json({error: "Erro ao deletar token"})
+    }
 
     //----------------------------------------------------------------------------------------------------------------------
     // async login(req,res){
@@ -114,6 +126,8 @@ class AuthLoginController {
     //         return res.status(500).json({ error: `Erro ao atualizar senha! ${error.message}` });
     //     }
     // }
+
+
 }
 
 export default new AuthLoginController();
