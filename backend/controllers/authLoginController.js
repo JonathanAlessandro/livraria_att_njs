@@ -41,10 +41,16 @@ class AuthLoginController {
             //primeiro parametro passado é o nome do cookie, o segundo é o valor do cookie, e o terceiro são as configurações do cookie, como httpOnly, secure, etc. (opcional)
             res.cookie("refreshToken", refreshToken, {
                 httpOnly: true, // O cookie só pode ser acessado pelo servidor, não pelo JavaScript do cliente
-                secure: process.env.COOKIE_ENV, //=== "production", // O cookie só será enviado em conexões seguras (HTTPS) no ambiente de produção
+                // o resultado desse secure vai vir como false algo necessario para rodar na maquina local
+                secure: process.env.COOKIE_ENV === "production", // O cookie só será enviado em conexões seguras (HTTPS) no ambiente de produção
+                //a versão abaixo funciona somente em https impedindo acessos http
+                //secure: process.env.COOKIE_ENV,
                 sameSite: "strict", // O cookie só será enviado para o mesmo site, prevenindo ataques CSRF
                 maxAge: 7 * 24 * 60 * 60 * 1000, // O cookie expira em 7 dias
             });
+
+            console.log(res);
+
             return res.json({ success: "Login bem-sucedido!", accessToken: accessToken });
         } catch (error) {
             res.status(500).json({ error: `Erro ao realizar login! ${error.message}` });
@@ -53,17 +59,23 @@ class AuthLoginController {
 
     }
 
-    async logout(req,res){
+    async logout(req, res) {
         const refreshToken = req.cookies?.refreshToken;
-        const deleteToken = await tok.deleteToken(refreshToken);
-        
-        res.clearCookie("refreshToken");
+
+        const deleteToken = await tokenModel.deleteToken(refreshToken);
+
+        res.clearCookie("refreshToken"
+            // , {
+            // httpOnly: true,
+            // secure: process.env.COOKIE_ENV === "production",
+            // sameSite: "strict",}
+        );
 
         if (deleteToken.affectedRows > 0) {
-            return res.status(201).json({success:"Logout realizado!"})
+            return res.status(201).json({ success: "Logout realizado!" })
         }
 
-        return res.status(500).json({error: "Erro ao deletar token"})
+        return res.status(500).json({ error: "Erro ao deletar token" })
     }
 
     //----------------------------------------------------------------------------------------------------------------------
