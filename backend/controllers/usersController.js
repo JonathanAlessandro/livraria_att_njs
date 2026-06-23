@@ -88,8 +88,8 @@ class UserController {
             const hashedPassword = await bcrypt.hash(user_password, 10);
 
             const newUser = await userModel.insertUser({
-                user_name,
-                user_email,
+                user_name: user_name.trim(),
+                user_email: user_email.trim(),
                 user_password: hashedPassword,
                 user_phone,
                 role_id,
@@ -139,8 +139,8 @@ class UserController {
             // 3. Se uma NOVA senha foi enviada, faz a lógica de comparação e criptografia
             if (user_password) {
                 // O bcrypt.compare vai dizer se "1234" corresponde à hash do banco
-                const isSamePassword = await bcrypt.compare(user_password,currentUser.user_password);
-                
+                const isSamePassword = await bcrypt.compare(user_password, currentUser.user_password);
+
                 // SE NÃO FOR A MESMA SENHA: O usuário digitou algo novo. 
                 if (!isSamePassword) {
                     // Agora gera uma nova hash para a senha nova
@@ -150,8 +150,8 @@ class UserController {
 
             // 4. Executa a atualização
             const result = await userModel.updateUser(user_id, {
-                user_name,
-                user_email,
+                user_name: user_name.trim(),
+                user_email: user_email.trim(),
                 user_password: hashedPassword, // Salva a nova hash ou mantém a antiga
                 user_phone,
                 role_id,
