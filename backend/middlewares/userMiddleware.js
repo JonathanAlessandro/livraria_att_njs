@@ -16,7 +16,10 @@ const validateUser = (req, res, next) => {
     const newPassword = user_password.trim();
 
     const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const regexPassword =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const regexPhone = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+    const regexRoleId = /^[1-9]\d*$/; // Verifica se é um número inteiro positivo
+    const regexUserStatus = /^\d$/; // Verifica se esta chegando um digito
 
     if (!newName) {
         errors.push("O nome é obrigatório!");
@@ -36,8 +39,8 @@ const validateUser = (req, res, next) => {
 
     if (!newPhone) {
         errors.push("O telefone é obrigatório!");
-    } else if (newPhone.length != 15) {
-        errors.push("o telefone deve ter 15 caracteres!");
+    } else if (!regexPhone.test(newPhone)) {
+        errors.push("o telefone deve estar no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX");
     }
 
     if (!newPassword) {
@@ -50,10 +53,14 @@ const validateUser = (req, res, next) => {
 
     if (!role_id) {
         errors.push("A regra é obrigatória!");
+    } else if( !regexRoleId.test(role_id)) {
+        errors.push("O role_id deve ser um número inteiro positivo!");
     }
 
     if (!user_status) {
         errors.push("O status é obrigatória!");
+    } else if( !regexUserStatus.test(user_status)) {
+        errors.push("O status deve ser um número inteiro!");
     }
 
     if (errors.length > 0) {

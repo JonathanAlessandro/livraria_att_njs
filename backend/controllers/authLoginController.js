@@ -3,6 +3,7 @@ import generateTokkens from "../utils/generateTokkens.js";
 import usersModel from "../models/usersModel.js";
 import tokenModel from "../models/tokenModel.js";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 dotenv.config();
 
@@ -56,6 +57,40 @@ class AuthLoginController {
             res.status(500).json({ error: `Erro ao realizar login! ${error.message}` });
         }
 
+    }
+
+    async refreshToken(req, res) {
+        const rfToken = req.cookies?.refreshToken;
+
+        if (!rfToken) {
+            return res.status(401).json({ error: "Token de refresh não encontrado!" });
+        }
+
+        const [tokenExists] = await tokenModel.selectToken(rfToken);
+
+        if (!tokenExists) {
+            return res.status(401).json({ error: "Token invalido!" })
+        }
+
+        jwt.verify(rfToken, process.env.REFRESH_TOKEN_SECRET, async (error, usuarioDecodificado) => {
+            if (error) {
+                return res.status(403).json({ error: "Token invalido ou expirado. " + error.message })
+            }
+
+            await tokenModel.deleteToken(rfToken);
+
+            const { iat, exp, ...userData } = usuarioDecodificado
+
+            const accessToken = generateTokkens.generateAccessToken(userData);
+            const newRefreshToken = generateTokkens.generateRefreshToken(userData);
+            const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+            const savedToken = await tokenModel.createToken({
+                user_id: userData.user_id,
+                token: newRefreshToken,
+                expires_at: expiresAt
+            })
+        })
 
     }
 
