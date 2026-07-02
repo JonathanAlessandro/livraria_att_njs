@@ -11,6 +11,10 @@ class EnderecoModel{
         return result;
     }
 
+    async selectEnderecoByCep(cep){
+        const [rows] = await pool.query("SELECT * FROM enderecos WHERE cep = ?;", [cep]);
+        return rows;
+    }
 
 }
 

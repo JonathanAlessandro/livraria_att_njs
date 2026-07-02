@@ -9,7 +9,7 @@ class CategoriaModel {
     }
 
     async getCategoriaById(id) {
-        const [rows] = await pool.query("SELECT * FROM categorias WHERE id_categoria = ?;", [id]);
+        const [rows] = await pool.execute("SELECT * FROM categorias WHERE id_categoria = ?;", [id]);
         return rows[0];
     }
 

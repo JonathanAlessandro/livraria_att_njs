@@ -8,6 +8,11 @@ class EnderecoController {
             if (!cep) {
                 return res.status(400).json({ message: `cep não fornecido` })
             }
+            const {selectEnderecoByCep} = await enderecoModel.selectEnderecoByCep(cep);
+
+            if (selectEnderecoByCep) {
+                return res.status(400).json({ message: `Endereço já cadastrado` })
+            }
 
             const getEndereco = await fetch(`http://viacep.com.br/ws/${cep}/json/`)
 
@@ -15,6 +20,16 @@ class EnderecoController {
 
 
             const jsonEndereco = await getEndereco.json()
+
+            const newEndereco = {
+                logradouro : jsonEndereco.logradouro, 
+                numero: "", 
+                complemento: "", 
+                bairro: jsonEndereco.bairro, 
+                cidade: jsonEndereco.localidade, 
+                estado: jsonEndereco.uf, 
+                cep: jsonEndereco.cep
+            }
 
             return res.status(200).json({ endereco: jsonEndereco })
         } catch (error) {
