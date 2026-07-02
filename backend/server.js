@@ -9,7 +9,7 @@ import routeEditoras from "./routes/editoraRoutes.js";
 import routeLivros from "./routes/livroRoutes.js";
 import routeUsers from "./routes/userRoutes.js";
 import loginRoute from "./routes/loginRoutes.js";
-
+import enderecoRoutes from "./routes/enderecoRoutes.js";
 
 dotenv.config();
 
@@ -33,7 +33,7 @@ app.use("/livros", routeLivros);
 app.use("/compras", routeCompras);
 app.use("/users", routeUsers);
 app.use("/auth", loginRoute);
-
+app.use("/endereco", enderecoRoutes);
 app.listen(PORT, () => {
     return console.log(`Servidor rodando http://localhost:${PORT}`);
 });
