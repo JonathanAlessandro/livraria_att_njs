@@ -10,6 +10,7 @@ import routeLivros from "./routes/livroRoutes.js";
 import routeUsers from "./routes/userRoutes.js";
 import loginRoute from "./routes/loginRoutes.js";
 import enderecoRoutes from "./routes/enderecoRoutes.js";
+import uploadRoute from "./routes/uploadRoute.js";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT_SERVER || 6050;
 
+
 app.use("/clientes", routeClientes);
 app.use("/categorias", routeCategorias);
 app.use("/editoras", routeEditoras);
@@ -34,6 +36,8 @@ app.use("/compras", routeCompras);
 app.use("/users", routeUsers);
 app.use("/auth", loginRoute);
 app.use("/endereco", enderecoRoutes);
+app.use("/upload", uploadRoute);
+
 app.listen(PORT, () => {
     return console.log(`Servidor rodando http://localhost:${PORT}`);
 });
