@@ -1,10 +1,18 @@
 class UploadController {
     uploadImage(req, res) {
-        if(!req.file) {
-            return res.status(400).json({ message: 'No file uploaded' });
+        console.log(req.file);
+        console.log(req.body);
+        if (!req.file) {
+            return res.status(400).json({
+                error: "Nenhuma imagem foi enviada!",
+            });
         }
 
-        return res.status(200).json({ message: 'File uploaded successfully', file: req.file });
+        return res.status(200).json({
+            message: "Imagem enviada com sucesso!",
+            filename: req.file,
+        });
     }
-
 }
+
+export default new UploadController();

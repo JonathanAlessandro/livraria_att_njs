@@ -1,9 +1,9 @@
 import express from "express";
-import upload from "../middleware/uploadMiddleware.js";
-import UploadController from "../controllers/uploadController.js";
+import upload from "../middlewares/uploadMiddleware.js";
+import uploadController from "../controllers/uploadController.js";
 
-const uploadRouter = express.Router();
+const uploadRoute = express.Router();
 
-uploadRouter.post("/upload", upload.single("image"), UploadController.uploadImage);
+uploadRoute.post("/", upload.single("image"), uploadController.uploadImage);
 
-export default uploadRouter;
+export default uploadRoute;
