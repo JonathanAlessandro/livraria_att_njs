@@ -24,7 +24,7 @@ export const authenticationToken = (req, res, next) => {
         next()
     });
 }
-
+    //permite na rota marcar os usuarios permitidos marcados pelos ... exemplo "adminRole("admin","gerente","vendedor")"
     export const adminRole = (...allowedRoles) => {
         return (req, res, next) => {
             if (!req.user) {
@@ -44,3 +44,4 @@ export const authenticationToken = (req, res, next) => {
     }
 
 
+export default authLoginMiddleware
