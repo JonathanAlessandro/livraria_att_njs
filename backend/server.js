@@ -11,6 +11,10 @@ import routeUsers from "./routes/userRoutes.js";
 import loginRoute from "./routes/loginRoutes.js";
 import enderecoRoutes from "./routes/enderecoRoutes.js";
 import uploadRoute from "./routes/uploadRoute.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs from "./swagger.json" with { type: "json" };
+
+
 
 dotenv.config();
 
@@ -27,6 +31,7 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT_SERVER || 6050;
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/clientes", routeClientes);
 app.use("/categorias", routeCategorias);

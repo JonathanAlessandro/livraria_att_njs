@@ -44,4 +44,4 @@ export const authenticationToken = (req, res, next) => {
     }
 
 
-export default authLoginMiddleware
+export default authenticationToken;
