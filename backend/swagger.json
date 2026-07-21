@@ -68,6 +68,63 @@
                     }
                 }
             }
+        },
+        "/auth/refresh": {
+            "post": {
+                "summary": "User login",
+                "description": "Realiza o login",
+                "tags": [
+                    "Authentication"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_email": {
+                                        "type": "string",
+                                        "description": "email do usuario",
+                                        "example": "email@email"
+                                    },
+                                    "user_password": {
+                                        "type": "string",
+                                        "description": "senha do usuario",
+                                        "example": "password123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful login"
+                    },
+                    "400": {
+                        "description": "Invalid request body"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    },
+                    "responseHeader": {
+                        "set-cookie": {
+                            "description": "JWT token set in cookie",
+                            "schema": {
+                                "type": "string",
+                                "example": ""
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
