@@ -43,14 +43,12 @@ class AuthLoginController {
             res.cookie("refreshToken", refreshToken, {
                 httpOnly: true, // O cookie só pode ser acessado pelo servidor, não pelo JavaScript do cliente
                 // o resultado desse secure vai vir como false algo necessario para rodar na maquina local
-                secure: process.env.COOKIE_ENV === "production", // O cookie só será enviado em conexões seguras (HTTPS) no ambiente de produção
+                secure: false,//process.env.COOKIE_ENV === "production", // O cookie só será enviado em conexões seguras (HTTPS) no ambiente de produção
                 //a versão abaixo funciona somente em https impedindo acessos http
                 //secure: process.env.COOKIE_ENV,
                 sameSite: "strict", // O cookie só será enviado para o mesmo site, prevenindo ataques CSRF
                 maxAge: 7 * 24 * 60 * 60 * 1000, // O cookie expira em 7 dias
             });
-
-            console.log(res);
 
             return res.json({ success: "Login bem-sucedido!", accessToken: accessToken });
         } catch (error) {
@@ -61,12 +59,15 @@ class AuthLoginController {
 
     async refreshToken(req, res) {
         const rfToken = req.cookies?.refreshToken;
+        console.log(rfToken);
 
         if (!rfToken) {
             return res.status(401).json({ error: "Token de refresh não encontrado!" });
         }
 
-        const [tokenExists] = await tokenModel.selectToken(rfToken);
+        const [tokenExists] = await tokenModel.selectByToken(rfToken);
+        console.log(tokenExists);
+
 
         if (!tokenExists) {
             return res.status(401).json({ error: "Token invalido!" })
@@ -83,13 +84,32 @@ class AuthLoginController {
 
             const accessToken = generateTokkens.generateAccessToken(userData);
             const newRefreshToken = generateTokkens.generateRefreshToken(userData);
+            console.log(newRefreshToken);
+
             const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
             const savedToken = await tokenModel.createToken({
-                user_id: userData.user_id,
+                user_id: userData.id,
                 token: newRefreshToken,
                 expires_at: expiresAt
-            })
+            });
+            if (savedToken.affectedRows === 0) {
+                return res.status(500).json({
+                    error: "Erro ao cadastrar o token!",
+                });
+            }
+
+            res.cookie("refreshToken", newRefreshToken, {
+                httpOnly: true,
+                secure: false,
+                sameSite: "strict",
+                maxAge: expiresAt,
+            });
+
+            return res.status(200).json({
+                success: "Sessão atualizada com sucesso!",
+                accessToken,
+            });
         })
 
     }
