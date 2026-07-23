@@ -66,7 +66,9 @@
                             "schema": {
                                 "$ref": "#/components/schemas/RefreshToken"
                             },
-                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJleHAiOjE2MzQyMzQwMDB9.abc123"
+                            "token":{
+                                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJleHAiOjE2MzQyMzQwMDB9.abc123"
+                            }
                         }
                     }
                 },
@@ -199,6 +201,9 @@
                         "type": "string"
                     },
                     "user_email": {
+                        "type": "string"
+                    },
+                    "user_password": {
                         "type": "string"
                     }
                 }

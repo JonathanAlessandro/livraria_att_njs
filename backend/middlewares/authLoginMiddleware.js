@@ -8,7 +8,17 @@ dotenv.config()
 export const authenticationToken = (req, res, next) => {
 
     const getToken = req.headers.authorization;
+    if (!getToken) {
+        return res.status(401).json({ error: "Token não fornecido" });
+    }
+    console.log(getToken);
+    
     const bearerTokken = getToken.split(" ")[1];
+    console.log(bearerTokken);
+    
+    
+    console.log(bearerTokken);
+    
 
     if (!bearerTokken) {
         return res.status(401).json({ error: "Token não fornecido" })
